@@ -60,15 +60,12 @@ activities = {
                 "max_participants": 16,
                 "participants": ["noah@mergington.edu", "ava@mergington.edu"]
             },
-            "Debate Team": {
-                "description": "Develop argumentation and public speaking skills through competitive debate",
-                "location": "Room 305",
-                "schedule": "Tuesdays, 3:30 PM - 5:00 PM",
-                "max_participants": 12,
-                "participants": ["mason@mergington.edu"]
-        "schedule": "Fridays, 3:30 PM - 5:00 PM",
+    "Debate Team": {
+        "description": "Develop argumentation and public speaking skills through competitive debate",
+        "location": "Room 305",
+        "schedule": "Tuesdays, 3:30 PM - 5:00 PM",
         "max_participants": 12,
-        "participants": ["michael@mergington.edu", "daniel@mergington.edu"]
+        "participants": ["mason@mergington.edu"]
     },
     "Programming Class": {
         "description": "Learn programming fundamentals and build software projects",
