@@ -25,7 +25,52 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <div><strong>Participants:</strong></div>
         `;
+
+        // Participants list
+        const ul = document.createElement("ul");
+        ul.className = "participants-list";
+        details.participants.forEach(email => {
+          const li = document.createElement("li");
+          li.className = "participant-item";
+          li.textContent = email;
+
+          // Delete icon
+          const delBtn = document.createElement("button");
+          delBtn.className = "delete-icon";
+          delBtn.title = "Remove participant";
+          delBtn.innerHTML = "&#128465;"; // Trash can unicode
+          delBtn.addEventListener("click", async (e) => {
+            e.stopPropagation();
+            if (confirm(`Remove ${email} from ${name}?`)) {
+              try {
+                const resp = await fetch(`/activities/${encodeURIComponent(name)}/participants/${encodeURIComponent(email)}`, {
+                  method: "DELETE"
+                });
+                const result = await resp.json();
+                if (resp.ok) {
+                  fetchActivities();
+                  messageDiv.textContent = result.message;
+                  messageDiv.className = "success";
+                } else {
+                  messageDiv.textContent = result.detail || "Failed to remove participant.";
+                  messageDiv.className = "error";
+                }
+                messageDiv.classList.remove("hidden");
+                setTimeout(() => messageDiv.classList.add("hidden"), 5000);
+              } catch (err) {
+                messageDiv.textContent = "Error removing participant.";
+                messageDiv.className = "error";
+                messageDiv.classList.remove("hidden");
+                setTimeout(() => messageDiv.classList.add("hidden"), 5000);
+              }
+            }
+          });
+          li.appendChild(delBtn);
+          ul.appendChild(li);
+        });
+        activityCard.appendChild(ul);
 
         activitiesList.appendChild(activityCard);
 
